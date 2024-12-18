@@ -1,0 +1,13 @@
+services:
+  nginx:
+    ports:
+      - "8000:80"
+
+  mysql:
+    ports:
+      - "3306:3306"
+
+  mailpit:
+    ports:
+      - "8025:8025" # Web UI access
+      - "1025:1025" # SMTP service

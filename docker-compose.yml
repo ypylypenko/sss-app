@@ -1,0 +1,59 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./.infrastructure/docker/nginx/app.conf:/etc/nginx/nginx.conf:ro
+      - .:/app:delegated
+    links:
+      - php-fpm
+    restart: always
+    depends_on:
+      - php-fpm
+    networks:
+      - backend
+
+  php-fpm:
+    build:
+      context: .infrastructure/docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app:delegated
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - backend
+
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.0
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: default
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_USER: default
+      MYSQL_PASSWORD: secret
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-psecret" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - backend
+    restart: always
+
+  mailpit:
+    image: axllent/mailpit
+    environment:
+      MAILPIT_SMTP_BIND_ADDR: "0.0.0.0:1025"
+      MAILPIT_HTTP_BIND_ADDR: "0.0.0.0:8025"
+      MAILPIT_UI_MESSAGES_PER_PAGE: "50"
+    restart: unless-stopped
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

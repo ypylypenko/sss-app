@@ -16,7 +16,7 @@ final class TicketRepository
     public function getPaginatedList(bool $processed, int $perPage = 10): Paginator
     {
         $query = Ticket::query()
-            ->with('user')
+            ->with(['user'])
             ->where('status', '=', $processed);
 
         $query = Pipeline::send($query)

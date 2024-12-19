@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ClosedTicketController;
 use App\Http\Controllers\Api\OpenTicketController;
+use App\Http\Controllers\Api\UserTicketController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([])->group(function () {
@@ -9,4 +10,6 @@ Route::middleware([])->group(function () {
         Route::get('open', OpenTicketController::class);
         Route::get('closed', ClosedTicketController::class);
     });
+
+    Route::get('/users/{email}/tickets', UserTicketController::class);
 });

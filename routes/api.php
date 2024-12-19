@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\OpenTicketController;
 use App\Http\Controllers\Api\UserTicketController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware([])->group(function () {
+Route::middleware(['throttle:60,1'])->group(function () {
     Route::prefix('tickets')->group(function () {
         Route::get('open', OpenTicketController::class);
         Route::get('closed', ClosedTicketController::class);

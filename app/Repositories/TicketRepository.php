@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\QueryFilters\Ticket\Subject;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Pipeline;
 
@@ -24,5 +25,25 @@ final class TicketRepository
             ->thenReturn();
 
         return $query->orderBy('created_at', 'DESC')->paginate($perPage);
+    }
+
+    public function count(): int
+    {
+        return Ticket::query()->count();
+    }
+
+    public function countUnprocessed(): int
+    {
+        return Ticket::query()
+            ->where('status', false)
+            ->count();
+    }
+
+    public function getLastProcessed(): Carbon
+    {
+        return Ticket::query()
+            ->where('status', true)
+            ->latest('updated_at')
+            ->value('updated_at');
     }
 }

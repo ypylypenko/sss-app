@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('app:generate-ticket')->everyMinute();
         $schedule->command('app:process-ticket')->everyFiveMinutes();
+        $schedule->command('app:send-daily-summary')->daily();
     }
 
     /**

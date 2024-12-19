@@ -24,7 +24,7 @@ const TicketsList = () => {
         fetchTickets();
         const interval = setInterval(() => {
             fetchTickets();
-        }, 5000);
+        }, 60000);
 
         return () => clearInterval(interval);
     }, [status, page]);

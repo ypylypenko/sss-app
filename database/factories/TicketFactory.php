@@ -20,7 +20,7 @@ class TicketFactory extends Factory
         return [
             'subject' => fake()->sentence(),
             'content' => fake()->paragraph(),
-            'user_id' => User::factory(),
+            'user_id' => User::query()->inRandomOrder()->value('id') ?? User::factory(),
             'status' => false,
         ];
     }

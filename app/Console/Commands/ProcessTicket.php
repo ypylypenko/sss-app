@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Ticket;
+use App\Repositories\TicketRepository;
 use Illuminate\Console\Command;
 
 class ProcessTicket extends Command
@@ -11,15 +11,16 @@ class ProcessTicket extends Command
 
     protected $description = 'Process ticket command';
 
-    public function handle(): void
+    public function handle(TicketRepository $ticketRepository): void
     {
-        $ticket = Ticket::query()
-            ->where('status', false)
-            ->oldest()
-            ->first();
+        $ticket = $ticketRepository->getOldestTicket();
 
         if ($ticket) {
-            $ticket->update(['status' => true]);
+            $ticketRepository->updateTicketStatus(
+                ticket: $ticket,
+                status: true
+            );
+
             $this->info("Ticket ID {$ticket->id} processed.");
         } else {
             $this->info("No tickets to process.");

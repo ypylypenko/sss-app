@@ -31,6 +31,14 @@ final class TicketRepository
         return $query->orderBy('created_at', 'DESC')->paginate($perPage);
     }
 
+    public function getOldestTicket(): ?Ticket
+    {
+        return Ticket::query()
+            ->where('status', false)
+            ->oldest()
+            ->first();
+    }
+
     public function count(): int
     {
         return Ticket::query()->count();
@@ -49,5 +57,10 @@ final class TicketRepository
             ->where('status', true)
             ->latest('updated_at')
             ->value('updated_at');
+    }
+
+    public function updateTicketStatus(Ticket $ticket, bool $status): bool
+    {
+        return $ticket->update(['status' => $status]);
     }
 }

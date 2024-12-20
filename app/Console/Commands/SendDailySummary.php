@@ -11,7 +11,7 @@ class SendDailySummary extends Command
 {
     protected $signature = 'app:send-daily-summary';
 
-    protected $description = 'Command description';
+    protected $description = 'Send daily unprocessed ticket summary emails';
 
     public function handle(): void
     {

@@ -9,7 +9,7 @@ class GenerateTicket extends Command
 {
     protected $signature = 'app:generate-ticket';
 
-    protected $description = 'Command description';
+    protected $description = 'Generate ticket command';
 
     public function handle(): void
     {

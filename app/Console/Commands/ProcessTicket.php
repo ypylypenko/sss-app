@@ -9,7 +9,7 @@ class ProcessTicket extends Command
 {
     protected $signature = 'app:process-ticket';
 
-    protected $description = 'Command description';
+    protected $description = 'Process ticket command';
 
     public function handle(): void
     {

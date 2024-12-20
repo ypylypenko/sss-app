@@ -37,6 +37,6 @@ make test
 
 or
 
-```
+```bash
 docker-compose exec php-fpm vendor/bin/pest --coverage --min=80
 ```

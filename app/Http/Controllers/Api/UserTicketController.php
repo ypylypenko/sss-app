@@ -13,7 +13,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Routing\ResponseFactory;
 
-class UserTicketController extends Controller
+final class UserTicketController extends Controller
 {
     public function __construct(
         private readonly UserRepository $userRepository

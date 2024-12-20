@@ -19,6 +19,24 @@ paths:
           description: Page number for pagination.
           schema:
             type: integer
+        - name: subject
+          in: query
+          required: false
+          description: Subject string for filtering.
+          schema:
+            type: string
+        - name: content
+          in: query
+          required: false
+          description: Content string for filtering.
+          schema:
+            type: string
+        - name: userId
+          in: query
+          required: false
+          description: User id for filtering.
+          schema:
+            type: integer
       responses:
         200:
           description: Successful response with a list of open tickets.
@@ -42,6 +60,24 @@ paths:
           in: query
           required: false
           description: Page number for pagination.
+          schema:
+            type: integer
+        - name: subject
+          in: query
+          required: false
+          description: Subject string for filtering.
+          schema:
+            type: string
+        - name: content
+          in: query
+          required: false
+          description: Content string for filtering.
+          schema:
+            type: string
+        - name: userId
+          in: query
+          required: false
+          description: User id for filtering.
           schema:
             type: integer
       responses:

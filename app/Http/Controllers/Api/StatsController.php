@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\TicketRepository;
 use App\Repositories\UserRepository;
 
-class StatsController extends Controller
+final class StatsController extends Controller
 {
     public function __construct(
         private readonly TicketRepository $ticketRepository,

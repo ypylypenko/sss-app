@@ -6,32 +6,35 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TicketRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-
+            'subject' => 'string',
+            'content' => 'string',
         ];
     }
 
-    public function getSubject(): ?string
+    public function getSubjectParam(): ?string
     {
         return $this->get('subject');
     }
 
-    public function getStatus(): ?bool
+    public function getContentParam(): ?string
+    {
+        return $this->get('content');
+    }
+
+    public function getUserIdParam(): ?int
+    {
+        if (!$this->has('userId')) {
+            return null;
+        }
+
+        return (int)$this->get('userId');
+    }
+
+    public function getStatusParam(): ?bool
     {
         $status = $this->get('status');
         if ($status === null) {

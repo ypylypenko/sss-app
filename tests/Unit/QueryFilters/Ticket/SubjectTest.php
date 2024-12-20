@@ -3,7 +3,6 @@
 use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
 use App\QueryFilters\Ticket\Subject;
-use Illuminate\Http\Request;
 
 it('filters tickets by subject', function () {
     Ticket::factory()->createMany([

@@ -8,7 +8,6 @@
 - NPM 10.8.2
 
 ### Running locally
-
 To build and run the application you can use the following command
 
 ```bash
@@ -39,4 +38,9 @@ or
 
 ```bash
 docker-compose exec php-fpm vendor/bin/pest --coverage --min=80
+```
+
+### Application will be available at
+```bash
+http://localhost:8080
 ```

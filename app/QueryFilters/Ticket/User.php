@@ -15,9 +15,11 @@ class User
 
     public function handle(Builder $builder, \Closure $next)
     {
+        $userId = $this->request->getUserIdParam();
+
         return $next($builder)
-            ->when($this->request->has('userId'), function (Builder $builder) {
-                return $builder->where('user_id', '=', $this->request->getUserIdParam());
+            ->when($userId !== null, function (Builder $builder) use ($userId) {
+                return $builder->where('user_id', '=', $userId);
             });
     }
 }

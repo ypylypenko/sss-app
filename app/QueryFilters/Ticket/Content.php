@@ -4,7 +4,6 @@ namespace App\QueryFilters\Ticket;
 
 use App\Http\Requests\TicketRequest;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class Content
 {
@@ -16,9 +15,11 @@ class Content
 
     public function handle(Builder $builder, \Closure $next)
     {
+        $content = $this->request->getContentParam();
+
         return $next($builder)
-            ->when($this->request->has('content'), function (Builder $builder) {
-                $subject = '%' . $this->request->getContentParam() . '%';
+            ->when($content !== null, function (Builder $builder) use ($content) {
+                $subject = '%' . $content . '%';
 
                 return $builder->where('content', 'like', $subject);
             });

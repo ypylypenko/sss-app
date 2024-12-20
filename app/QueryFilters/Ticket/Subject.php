@@ -4,7 +4,6 @@ namespace App\QueryFilters\Ticket;
 
 use App\Http\Requests\TicketRequest;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class Subject
 {
@@ -16,9 +15,11 @@ class Subject
 
     public function handle(Builder $builder, \Closure $next)
     {
+        $subject = $this->request->getSubjectParam();
+
         return $next($builder)
-            ->when($this->request->has('subject'), function (Builder $builder) {
-                $subject = '%' . $this->request->getSubjectParam() . '%';
+            ->when($subject !== null, function (Builder $builder) use ($subject) {
+                $subject = '%' . $subject . '%';
 
                 return $builder->where('subject', 'like', $subject);
             });

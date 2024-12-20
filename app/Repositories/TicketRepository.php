@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\QueryFilters\Ticket\Content;
 use App\QueryFilters\Ticket\Subject;
 use App\Models\Ticket;
+use App\QueryFilters\Ticket\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Pipeline;
@@ -11,6 +13,8 @@ use Illuminate\Support\Facades\Pipeline;
 final class TicketRepository
 {
     protected array $filters = [
+        Content::class,
+        User::class,
         Subject::class
     ];
 
@@ -39,7 +43,7 @@ final class TicketRepository
             ->count();
     }
 
-    public function getLastProcessed(): Carbon
+    public function getLastProcessed(): ?Carbon
     {
         return Ticket::query()
             ->where('status', true)
